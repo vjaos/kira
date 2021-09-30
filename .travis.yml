@@ -1,4 +1,9 @@
-dist: trusty
+os: linux
+arch:
+  - arm64
+  - ppc64le
+  - s390x
+
 language: java
 jdk:
   - openjdk11
