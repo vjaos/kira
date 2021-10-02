@@ -9,11 +9,6 @@ jdk:
 
 install: true
 
-addons:
-  apt:
-    packages:
-      - docker-ce
-
 env:
   global:
     - COMMIT=${TRAVIS_COMMIT::7}
