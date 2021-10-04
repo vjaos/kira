@@ -33,7 +33,7 @@ class WebSecurityConfig() {
         filter.successHandler = successHandler
 
         http
-            .addFilterBefore(filter, UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterAt(filter, UsernamePasswordAuthenticationFilter::class.java)
             .authorizeRequests()
             .antMatchers("/login", "/register").permitAll()
             .anyRequest().authenticated()

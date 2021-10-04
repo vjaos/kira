@@ -12,7 +12,7 @@ class JwtAuthManager(
     private val authService: AuthService
 ) : AuthenticationManager {
 
-    override fun authenticate(authentication: Authentication?): Authentication {
+    override fun authenticate(authentication: Authentication): Authentication {
         val token = authentication as BearerToken
 
         try {
