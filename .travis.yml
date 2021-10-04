@@ -9,6 +9,11 @@ jdk:
 
 install: true
 
+env:
+  global:
+    - COMMIT=${TRAVIS_COMMIT::7}
+
+
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -18,3 +23,13 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+
+after_script:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
+    ; fi`
+
+  - export API_SERVER=vjaos/kira
+  - docker build -t $API_SERVER:$COMMIT .
+  - docker tag $API_SERVER:$COMMIT $API_SERVER:$TAG
+  - docker push $API_SERVER

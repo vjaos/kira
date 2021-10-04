@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: user
+    password: password
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+
+auth:
+  secret-key: "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTYzMzI2NDg1OCwiaWF0IjoxNjMzMjY0ODU4fQ.3oeSK-Vqq458cc940am0zuiTXpHYGcNgYa234zlpq7g"
