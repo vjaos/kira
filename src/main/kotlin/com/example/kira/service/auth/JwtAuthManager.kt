@@ -22,7 +22,6 @@ class JwtAuthManager(
         }
     }
 
-
     private fun validate(token: BearerToken): Authentication {
         val username = jwtService.getUsername(token)
         val user = authService.loadUserByUsername(username)
@@ -33,5 +32,4 @@ class JwtAuthManager(
 
         throw IllegalArgumentException("Token is not valid.")
     }
-
 }

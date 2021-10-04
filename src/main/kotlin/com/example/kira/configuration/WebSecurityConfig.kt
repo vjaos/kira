@@ -47,5 +47,4 @@ class WebSecurityConfig() {
 
         return http.build()
     }
-
 }
