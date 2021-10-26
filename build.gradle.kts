@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.5.31"
     kotlin("plugin.spring") version "1.5.31"
     kotlin("plugin.jpa") version "1.5.31"
+    jacoco
 }
 
 group = "com.example"
@@ -35,7 +36,9 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.testcontainers:testcontainers:1.16.0")
     testImplementation("org.testcontainers:postgresql:1.16.0")
-
+    testImplementation("com.github.tomakehurst:wiremock-jre8:2.31.0")
+    testImplementation("org.springframework.security:spring-security-test:5.5.3")
+    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
 }
 
 tasks.withType<KotlinCompile> {
@@ -48,7 +51,41 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
-
 tasks.getByName<Jar>("jar") {
     enabled = false
+}
+
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(false)
+        csv.required.set(false)
+        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+    }
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = "0.8".toBigDecimal()
+            }
+        }
+
+        rule {
+            element = "CLASS"
+            limit {
+                counter = "BRANCH"
+                minimum = "0.7".toBigDecimal()
+            }
+        }
+    }
+}
+
+tasks.check {
+    dependsOn(tasks.jacocoTestCoverageVerification)
 }

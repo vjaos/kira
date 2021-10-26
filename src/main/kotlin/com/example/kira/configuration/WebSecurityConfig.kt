@@ -16,10 +16,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 
 
 @EnableWebSecurity
-class WebSecurityConfig() {
+class WebSecurityConfig {
 
     @Bean
-    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder(12)
 
     @Bean
     fun configure(
@@ -40,10 +40,10 @@ class WebSecurityConfig() {
             .and()
             .httpBasic().disable()
             .formLogin().disable()
+            .logout().disable()
             .csrf().disable()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
 
         return http.build()
     }
