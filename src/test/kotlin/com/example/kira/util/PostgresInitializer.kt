@@ -1,4 +1,4 @@
-package com.example.kira
+package com.example.kira.util
 
 import org.springframework.boot.test.util.TestPropertyValues.of
 import org.springframework.context.ApplicationContextInitializer

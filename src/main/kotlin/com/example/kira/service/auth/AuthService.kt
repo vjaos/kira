@@ -4,6 +4,7 @@ import com.example.kira.dto.Jwt
 import com.example.kira.dto.Login
 import com.example.kira.dto.UserCreateRequest
 import com.example.kira.entity.User
+import com.example.kira.exception.UserAlreadyExistsException
 import com.example.kira.repository.UserRepository
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.userdetails.UserDetails
@@ -35,7 +36,7 @@ class AuthService(
     fun register(request: UserCreateRequest) {
         val user = userRepository.findByUsername(request.username)
         if (user != null) {
-            throw IllegalArgumentException()
+            throw UserAlreadyExistsException("User '${request.username}' already exists")
         } else {
             userRepository.save(
                 User(
