@@ -1,7 +1,7 @@
 package com.example.kira.config
 
-interface UrlConstants {
+class UrlConstants {
     companion object {
-        const val API_URL = "/api/"
+        const val API_URL = "/api"
     }
 }

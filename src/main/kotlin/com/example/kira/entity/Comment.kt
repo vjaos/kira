@@ -10,7 +10,7 @@ import javax.persistence.ManyToMany
 import javax.persistence.Table
 
 @Entity
-@Table(name = "comment")
+@Table(name = "comments")
 class Comment(
         @ManyToOne(fetch = FetchType.EAGER)
         var user: User,
