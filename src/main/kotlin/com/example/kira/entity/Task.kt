@@ -13,11 +13,11 @@ import javax.persistence.Table
 @Table(name = "tasks")
 data class Task(
         var name: String,
-        var description: String?,
-        var status: String?,
+        var description: String? = "",
+        var status: String? = "",
         @OneToMany(fetch = FetchType.EAGER)
         var comments: Set<Comment> = emptySet(),
-        var priority: String?,
+        var priority: String? = "",
         @ManyToMany(fetch = FetchType.EAGER)
         var performers: Set<User> = emptySet()
 ) {

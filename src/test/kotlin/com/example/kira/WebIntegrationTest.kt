@@ -3,6 +3,8 @@ package com.example.kira
 import com.example.kira.dto.Jwt
 import com.example.kira.dto.Login
 import com.example.kira.repository.UserRepository
+import com.example.kira.repository.TaskRepository
+import com.example.kira.repository.SprintRepository
 import com.example.kira.util.PostgresInitializer
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
@@ -30,6 +32,10 @@ class WebIntegrationTest {
     lateinit var context: WebApplicationContext
     @Autowired
     lateinit var userRepository: UserRepository
+    @Autowired
+    lateinit var taskRepository: TaskRepository
+    @Autowired
+    lateinit var sprintRepository: SprintRepository
     lateinit var mockMvc: MockMvc
 
     val mapper: ObjectMapper = ObjectMapper().registerModule(KotlinModule())
