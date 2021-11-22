@@ -19,7 +19,7 @@ data class Task(
         var comments: Set<Comment> = emptySet(),
         var priority: String? = "",
         @ManyToMany(fetch = FetchType.EAGER)
-        var performers: Set<User> = emptySet()
+        var performers: MutableSet<User> = mutableSetOf()
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,9 +1,7 @@
 package com.example.kira.advice
 
 import com.example.kira.dto.ErrorMessage
-import com.example.kira.exception.LogicErrorType
-import com.example.kira.exception.UserAlreadyExistsException
-import org.springframework.http.HttpStatus
+import com.example.kira.exception.BusinessLogicException
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -11,12 +9,12 @@ import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 
 @ControllerAdvice
-class AuthControllerAdvice : ResponseEntityExceptionHandler() {
+class LogicExceptionControllerAdvice : ResponseEntityExceptionHandler() {
 
-    @ExceptionHandler(UserAlreadyExistsException::class)
-    fun handleUserAlreadyExits(
-        exception: UserAlreadyExistsException,
+    @ExceptionHandler(BusinessLogicException::class)
+    fun handleLoginException(
+        exception: BusinessLogicException,
         request: WebRequest
     ): ResponseEntity<ErrorMessage> =
-        ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ErrorMessage(LogicErrorType.UNAUTHORIZED, exception.message))
+        ResponseEntity.badRequest().body(ErrorMessage(exception.type, exception.message))
 }
