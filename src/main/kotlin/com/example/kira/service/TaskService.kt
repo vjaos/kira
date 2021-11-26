@@ -1,6 +1,5 @@
 package com.example.kira.service
 
-import com.example.kira.dto.ErrorMessage
 import com.example.kira.dto.TaskCreateRequest
 import com.example.kira.dto.TaskInfo
 import com.example.kira.dto.TaskListResponse
@@ -13,12 +12,8 @@ import com.example.kira.exception.LogicErrorType
 import com.example.kira.repository.TaskRepository
 import com.example.kira.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.util.StringUtils
-import kotlin.math.E
 
 @Service
 @Transactional
