@@ -1,3 +1,5 @@
 package com.example.kira.dto
 
-data class ErrorMessage(val message: String)
+import com.example.kira.exception.LogicErrorType
+
+data class ErrorMessage(val type: LogicErrorType, val message: String)
