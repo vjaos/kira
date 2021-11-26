@@ -5,5 +5,5 @@ spring:
   jpa:
     database: postgresql
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     open-in-view: false

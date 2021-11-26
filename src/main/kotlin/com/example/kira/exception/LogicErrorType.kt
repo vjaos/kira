@@ -1,7 +1,9 @@
 package com.example.kira.exception
 
-enum class LogicErrorType {
-    PERFORMERS_NOT_FOUND,
-    UNAUTHORIZED,
-    TASK_NOT_FOUND
+import org.springframework.http.HttpStatus
+
+enum class LogicErrorType(val status: HttpStatus) {
+    PERFORMERS_NOT_FOUND(HttpStatus.NOT_FOUND),
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED),
+    TASK_NOT_FOUND(HttpStatus.NOT_FOUND)
 }

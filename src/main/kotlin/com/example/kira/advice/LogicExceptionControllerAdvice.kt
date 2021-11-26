@@ -16,5 +16,5 @@ class LogicExceptionControllerAdvice : ResponseEntityExceptionHandler() {
         exception: BusinessLogicException,
         request: WebRequest
     ): ResponseEntity<ErrorMessage> =
-        ResponseEntity.badRequest().body(ErrorMessage(exception.type, exception.message))
+        ResponseEntity.status(exception.type.status).body(ErrorMessage(exception.type, exception.message))
 }
