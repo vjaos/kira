@@ -4,8 +4,9 @@ import com.example.kira.WebIntegrationTest
 import com.example.kira.config.UrlConstants
 import com.example.kira.dto.Login
 import com.example.kira.dto.TaskPerformers
-import com.example.kira.dto.TaskUpdateRequest
+import com.example.kira.dto.request.TaskUpdateRequest
 import com.example.kira.entity.Task
+import com.example.kira.entity.TaskStatus
 import com.example.kira.entity.User
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.apache.http.HttpHeaders
@@ -37,58 +38,8 @@ class TaskControllerTest : WebIntegrationTest() {
 
 
     @Test
-    fun `should return task list`() {
-        taskRepository.save(
-                Task(
-                        name = "name",
-                        description = "description",
-                        status = "status",
-                        priority = "priority"
-                )
-        )
-        val expectedJson = """
-        {
-            "totalCount": 1, 
-            "taskList": [
-                { 
-                    "name": "name", 
-                    "description": "description", 
-                    "status": "status", 
-                    "priority": "priority", 
-                    "comments": [], 
-                    "performers": [] 
-                }
-            ]
-        }
-        """
-        mockMvc.get("${UrlConstants.API_URL}/tasks") { header(HttpHeaders.AUTHORIZATION, token) }
-                .andExpect {
-                    status { isOk() }
-                    content { json(expectedJson) }
-                }
-    }
-
-    @Test
-    fun `should create task`() {
-        mockMvc.post("${UrlConstants.API_URL}/tasks") {
-            header(HttpHeaders.AUTHORIZATION, token)
-            contentType = MediaType.APPLICATION_JSON
-            content = """ { "name": "name" } """
-        }.andExpect { status { isCreated() } }
-    }
-
-    @Test
-    fun `when incorrect data was given should return bad request`() {
-        mockMvc.post("${UrlConstants.API_URL}/tasks") {
-            header(HttpHeaders.AUTHORIZATION, token)
-            contentType = MediaType.APPLICATION_JSON
-            content = "{}"
-        }.andExpect { status { isBadRequest() } }
-    }
-
-    @Test
     fun `should delete task`() {
-        val id = taskRepository.save(Task(name = "name", "des", "sts", priority = "h")).taskId
+        val id = taskRepository.save(Task(name = "name", "des", TaskStatus.IN_PROGRESS, priority = "h")).taskId
 
         mockMvc.delete("${UrlConstants.API_URL}/tasks/$id") { header(HttpHeaders.AUTHORIZATION, token) }
                 .andExpect {
@@ -110,7 +61,7 @@ class TaskControllerTest : WebIntegrationTest() {
             Task(
                 name = "name",
                 description = "description",
-                status = "status",
+                status = TaskStatus.DONE,
                 priority = "priority"
             )
         ).taskId
@@ -118,7 +69,7 @@ class TaskControllerTest : WebIntegrationTest() {
         val taskUpdateRequest = TaskUpdateRequest(
             name = "new name",
             description = "test description",
-            status = "IN PROGRESS",
+            status = TaskStatus.IN_PROGRESS,
             priority = "HIGH"
         )
 
@@ -142,7 +93,7 @@ class TaskControllerTest : WebIntegrationTest() {
         val taskUpdateRequest = TaskUpdateRequest(
             name = "new name",
             description = "test description",
-            status = "IN PROGRESS",
+            status = TaskStatus.TODO,
             priority = "HIGH"
         )
 
@@ -163,7 +114,7 @@ class TaskControllerTest : WebIntegrationTest() {
             Task(
                 name = "name",
                 description = "description",
-                status = "status",
+                status = TaskStatus.TODO,
                 priority = "priority"
             )
         )
@@ -186,7 +137,7 @@ class TaskControllerTest : WebIntegrationTest() {
             Task(
                 name = "name",
                 description = "description",
-                status = "status",
+                status = TaskStatus.TODO,
                 priority = "priority"
             )
         )

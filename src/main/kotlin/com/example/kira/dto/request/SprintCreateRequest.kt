@@ -1,4 +1,4 @@
-package com.example.kira.dto
+package com.example.kira.dto.request
 
 import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDate

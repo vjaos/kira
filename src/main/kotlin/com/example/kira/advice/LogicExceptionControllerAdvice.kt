@@ -1,6 +1,6 @@
 package com.example.kira.advice
 
-import com.example.kira.dto.ErrorMessage
+import com.example.kira.dto.response.ErrorMessage
 import com.example.kira.exception.BusinessLogicException
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice

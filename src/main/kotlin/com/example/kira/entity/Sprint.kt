@@ -10,16 +10,18 @@ import javax.persistence.Table
 import javax.persistence.TemporalType
 import org.springframework.data.jpa.repository.Temporal
 import java.time.LocalDate
+import javax.persistence.ManyToMany
+import javax.persistence.ManyToOne
 
 @Entity
 @Table(name = "sprints")
-class Sprint(
-        var name: String,
-        var targets: String? = "",
-        @OneToMany(fetch = FetchType.EAGER)
-        var tasks: Set<Task> = emptySet(),
-        @Temporal(TemporalType.DATE)
-        var deadline: LocalDate
+data class Sprint(
+    var name: String,
+    var targets: String? = "",
+    @OneToMany(fetch = FetchType.EAGER)
+    var tasks: MutableSet<Task> = mutableSetOf(),
+    @Temporal(TemporalType.DATE)
+    var deadline: LocalDate
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

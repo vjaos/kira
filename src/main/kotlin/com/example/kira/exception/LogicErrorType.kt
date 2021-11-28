@@ -5,5 +5,6 @@ import org.springframework.http.HttpStatus
 enum class LogicErrorType(val status: HttpStatus) {
     PERFORMERS_NOT_FOUND(HttpStatus.NOT_FOUND),
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED),
-    TASK_NOT_FOUND(HttpStatus.NOT_FOUND)
+    TASK_NOT_FOUND(HttpStatus.NOT_FOUND),
+    SPRINT_NOT_FOUND(HttpStatus.NOT_FOUND)
 }

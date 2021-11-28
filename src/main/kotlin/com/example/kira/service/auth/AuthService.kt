@@ -1,8 +1,8 @@
 package com.example.kira.service.auth
 
-import com.example.kira.dto.Jwt
+import com.example.kira.dto.response.Jwt
 import com.example.kira.dto.Login
-import com.example.kira.dto.UserCreateRequest
+import com.example.kira.dto.request.UserCreateRequest
 import com.example.kira.entity.User
 import com.example.kira.exception.UserAlreadyExistsException
 import com.example.kira.repository.UserRepository

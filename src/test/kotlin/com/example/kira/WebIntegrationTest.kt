@@ -1,6 +1,6 @@
 package com.example.kira
 
-import com.example.kira.dto.Jwt
+import com.example.kira.dto.response.Jwt
 import com.example.kira.dto.Login
 import com.example.kira.repository.UserRepository
 import com.example.kira.repository.TaskRepository

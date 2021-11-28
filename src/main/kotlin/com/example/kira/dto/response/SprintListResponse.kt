@@ -1,4 +1,4 @@
-package com.example.kira.dto
+package com.example.kira.dto.response
 
 import com.example.kira.entity.Sprint
 
