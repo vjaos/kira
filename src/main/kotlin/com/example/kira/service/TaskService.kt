@@ -1,12 +1,7 @@
 package com.example.kira.service
 
-import com.example.kira.dto.TaskCreateRequest
-import com.example.kira.dto.TaskInfo
-import com.example.kira.dto.TaskListResponse
 import com.example.kira.dto.TaskPerformers
-import com.example.kira.dto.TaskUpdateRequest
-import com.example.kira.entity.Task
-import com.example.kira.entity.User
+import com.example.kira.dto.request.TaskUpdateRequest
 import com.example.kira.exception.BusinessLogicException
 import com.example.kira.exception.LogicErrorType
 import com.example.kira.repository.TaskRepository
@@ -22,31 +17,6 @@ class TaskService(
     private val userRepository: UserRepository
 ) {
 
-    fun getAll(): TaskListResponse =
-        taskRepository.findAll()
-            .map {
-                TaskInfo(
-                    name = it.name,
-                    description = it.description,
-                    priority = it.priority,
-                    status = it.status,
-                    performers = it.performers.map(User::username),
-                    comments = it.comments
-                )
-            }
-            .let { TaskListResponse(it.count(), it.toList()) }
-
-    fun createTask(request: TaskCreateRequest): Task {
-        return taskRepository.save(
-            Task(
-                name = request.name,
-                description = request.description ?: EMPTY_STRING,
-                status = request.status ?: EMPTY_STRING,
-                priority = request.priority ?: EMPTY_STRING
-            )
-        )
-    }
-
     fun deleteTaskById(id: Long) {
         if (taskRepository.existsById(id)) taskRepository.deleteById(id)
     }
@@ -57,7 +27,7 @@ class TaskService(
                 name = request.name ?: this.name
                 description = request.description ?: this.description
                 status = request.status ?: this.status
-                priority = request.priority ?: this.status
+                priority = request.priority ?: this.priority
             }
             ?.let { taskRepository.save(it) }
             ?: throw BusinessLogicException(LogicErrorType.TASK_NOT_FOUND, "Task $id not found")
@@ -74,10 +44,5 @@ class TaskService(
 
         task.performers.addAll(users)
         taskRepository.save(task)
-    }
-
-
-    companion object {
-        const val EMPTY_STRING = ""
     }
 }

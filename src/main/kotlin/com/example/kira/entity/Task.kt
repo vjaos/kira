@@ -14,7 +14,7 @@ import javax.persistence.Table
 data class Task(
         var name: String,
         var description: String,
-        var status: String,
+        var status: TaskStatus,
         @OneToMany(fetch = FetchType.EAGER)
         var comments: Set<Comment> = emptySet(),
         var priority: String,

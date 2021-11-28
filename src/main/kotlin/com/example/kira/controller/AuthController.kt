@@ -1,8 +1,8 @@
 package com.example.kira.controller
 
-import com.example.kira.dto.Jwt
+import com.example.kira.dto.response.Jwt
 import com.example.kira.dto.Login
-import com.example.kira.dto.UserCreateRequest
+import com.example.kira.dto.request.UserCreateRequest
 import com.example.kira.service.auth.AuthService
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
